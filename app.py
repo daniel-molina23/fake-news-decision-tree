@@ -25,7 +25,7 @@ def encodeFields(df):
     newDF["tweet_ids"] = [encodedTweet_ids]
     newDF["internal_links"] = [encodeUrl['internal_links']]
 
-    print("\n\n--------------------\n",newDF , "\n--------------------\n\n")
+    #print("\n\n--------------------\n",newDF , "\n--------------------\n\n")
     return newDF
 
 @app.route('/api/v1/webApp', methods=['POST'])
@@ -61,6 +61,7 @@ def webApp():
 
     # TODO: Call your functions here to update 'confidence_score' in dictionary and then return
     contentDict['confidence_score'] = accuracy
+    contentDict['isReal'] = 1 if (y_pred == 0) else 0
     return jsonify(contentDict)
 
 @app.route('/')
