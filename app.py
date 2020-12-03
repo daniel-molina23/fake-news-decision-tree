@@ -44,7 +44,7 @@ def webApp():
     y_pred, accuracy = DecisionTreeModel(y_final).execute()
 
     print("For the link you provided the model determined it is...DRUM ROLL PLEASE...\n")
-    if(y_pred == 0):
+    if(y_pred[0][0] > .5):
         print("IT IS THE TRUTH, REAL NEWS!!!!\n")
     else:
         print("IT IS FAKE NEWS!!!\n")
@@ -60,8 +60,8 @@ def webApp():
     '''
 
     # TODO: Call your functions here to update 'confidence_score' in dictionary and then return
-    contentDict['confidence_score'] = accuracy
-    contentDict['isReal'] = 1 if (y_pred == 0) else 0
+    contentDict['confidence_score'] = y_pred[0][0] if (y_pred[0][0] > .5) else y_pred[0][1]
+    contentDict['isReal'] = 1 if (y_pred[0][0] > .5) else 0
     return jsonify(contentDict)
 
 @app.route('/')
