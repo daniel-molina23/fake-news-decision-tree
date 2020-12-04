@@ -14,7 +14,7 @@ class DecisionTreeModel:
     
     def execute(self):
         accuracy, model = self.computeOptimalModel()
-        y_pred = model.predict(self.predDF)
+        y_pred = model.predict_proba(self.predDF)
         return [y_pred, accuracy]
 
     def computeOptimalModel(self):
@@ -35,7 +35,7 @@ class DecisionTreeModel:
                 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=rand) # 80% training and 20% test
     
                 # create the classifier, gini by default
-                clf = DecisionTreeClassifier(criterion=criterion[i])
+                clf = DecisionTreeClassifier(criterion=criterion[i], max_depth=5)
 
                 # train decision tree
                 clf = clf.fit(X_train, y_train)
